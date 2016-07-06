@@ -7,9 +7,13 @@
     <link href="/style.css" rel="stylesheet" />
     <script src="/angular/angular.js" defer></script>
     <script src="/js/module.js" defer></script>
+
+    <script src="/js/album/album.factory.js" defer></script>
+    <script src="/js/player/player.factory.js" defer></script>
+
     <script src="/js/album/album.controllers.js" defer></script>
     <script src="/js/player/player.controller.js" defer></script>
-    <script src="/js/player/player.factory.js" defer></script>
+
   </head>
   <body ng-app="juke">
     <div id="main" class="container-fluid">
@@ -28,7 +32,7 @@
       <div class="col-xs-10">
         <div class="album" ng-controller="AlbumCtrl">
           <p>
-            <h3>{{ album.name }}</h3>
+            <h3>{{ album.name }} {{ fullDuration }} Seconds</h3>
             <img ng-src="{{ album.imageUrl }}" class="img-thumbnail">
           </p>
           <table class='table'>
