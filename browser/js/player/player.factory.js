@@ -82,11 +82,24 @@ juke.factory('PlayerFactory', function($rootScope){
     playerFactory.start(playerFactory.currentSong, playerFactory.album);
   }
 
+  // Event listeners
+  audio.addEventListener('timeupdate', function () {
+        playerFactory.progress = audio.currentTime / audio.duration;
+        $rootScope.$evalAsync();
+  });
 
-audio.addEventListener('timeupdate', function () {
-      playerFactory.progress = audio.currentTime / audio.duration;
-      $rootScope.$evalAsync();
-});
+  audio.addEventListener('ended', function () {
+    playerFactory.next();
+    // $scope.$apply(); // triggers $rootScope.$digest, which hits other scopes
+    $rootScope.$evalAsync(); // likely best, schedules digest if none happening
+  });
+
+  audio.addEventListener('timeupdate', function () {
+    playerFactory.progress = 100 * audio.currentTime / audio.duration;
+  //   // $scope.$digest(); // re-computes current template only (this scope)
+    $rootScope.$evalAsync(); // likely best, schedules digest if none happening
+  });
+
   playerFactory.getProgress = function(){
     // return playerFactory.progress;
     return playerFactory.progress;

@@ -30,7 +30,7 @@
       </div>
 
       <div class="col-xs-10">
-        <div class="album" ng-controller="AlbumCtrl" ng-show="false">
+        <div class="album" ng-controller="AlbumCtrl" ng-show="true">
           <p>
             <h3>{{ album.name }} {{ fullDuration }} Seconds</h3>
             <img ng-src="{{ album.imageUrl }}" class="img-thumbnail">
@@ -58,7 +58,7 @@
             </tbody>
           </table>
         </div>
-        <div ng-show="true">
+        <div ng-show="false">
           <h3>Albums</h3>
           <div class="row" ng-controller = "albums">
             <div class="col-xs-4" ng-repeat= "album in albums">
@@ -88,7 +88,7 @@
       </div>
 
       <footer>
-        <div ng-show="currentSong" ng-controller="PlayerCtrl">
+        <div ng-show="getCurrentSong()" ng-controller="PlayerCtrl">
           <div class="pull-left">
             <button class="btn btn-default" ng-click="prev()">
               <span class="glyphicon glyphicon-step-backward"></span>

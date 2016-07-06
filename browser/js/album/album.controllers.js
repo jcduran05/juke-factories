@@ -1,7 +1,7 @@
 'use strict';
 
 juke.controller('AlbumCtrl', function ($scope, $http, $rootScope, $log,
-                                       StatsFactory, FindAlbum) {
+                                       StatsFactory, FindAlbum, PlayerFactory) {
 
   // load our initial data
   FindAlbum.fetchById(1)
@@ -25,27 +25,35 @@ juke.controller('AlbumCtrl', function ($scope, $http, $rootScope, $log,
   })
   .catch($log.error); // $log service can be turned on and off; also, pre-bound
 
-  // main toggle
-  $scope.toggle = function (song) {
-    if ($scope.playing && song === $scope.currentSong) {
-      $rootScope.$broadcast('pause');
-    } else $rootScope.$broadcast('play', song);
-  };
+  // PlayerFactory.album = $scope.album;
+
+  $scope.toggle = function(song) {
+    if (!PlayerFactory.isPlaying()) {
+      PlayerFactory.start(song);
+    } else {
+      PlayerFactory.pause();
+    }
+
+    $scope.playing = PlayerFactory.playing;
+    $scope.currentSong = PlayerFactory.currentSong;
+  }
+
+    // console.log('album ', PlayerFactory.album);
 
   // incoming events (from Player, toggle, or skip)
-  $scope.$on('pause', pause);
-  $scope.$on('play', play);
-  $scope.$on('next', next);
-  $scope.$on('prev', prev);
+  // $scope.$on('pause', pause);
+  // $scope.$on('play', play);
+  // $scope.$on('next', next);
+  // $scope.$on('prev', prev);
 
   // functionality
-  function pause () {
-    $scope.playing = false;
-  }
-  function play (event, song) {
-    $scope.playing = true;
-    $scope.currentSong = song;
-  };
+  // function pause () {
+  //   $scope.playing = false;
+  // }
+  // function play (event, song) {
+  //   $scope.playing = true;
+  //   $scope.currentSong = song;
+  // };
 
   // a "true" modulo that wraps negative to the top of the range
   function mod (num, m) { return ((num % m) + m) % m; };
@@ -74,7 +82,6 @@ juke.controller('albums', function ($scope, $http, $rootScope, $log, StatsFactor
       value.imageUrl = '/api/albums/' + value.id + '/image';
       $scope.albums.push(value);
     })
-    console.log(allAlbumsData);
   })
   .catch($log.error)
 });
