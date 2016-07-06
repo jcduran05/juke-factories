@@ -62,3 +62,19 @@ juke.controller('AlbumCtrl', function ($scope, $http, $rootScope, $log,
   function prev () { skip(-1); };
 
 });
+
+
+// albums view
+
+juke.controller('albums', function ($scope, $http, $rootScope, $log, StatsFactory, FindAlbum) {
+  FindAlbum.fetchAll()
+  .then(function(allAlbumsData){
+    $scope.albums = [];
+    allAlbumsData.forEach(function(value){
+      value.imageUrl = '/api/albums/' + value.id + '/image';
+      $scope.albums.push(value);
+    })
+    console.log(allAlbumsData);
+  })
+  .catch($log.error)
+});
