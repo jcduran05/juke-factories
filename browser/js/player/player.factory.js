@@ -1,6 +1,6 @@
 'use strict';
 
-juke.factory('PlayerFactory', function(){
+juke.factory('PlayerFactory', function($rootScope){
   // non-UI logic in here
   var playerFactory = {
     playing : false,
@@ -82,13 +82,14 @@ juke.factory('PlayerFactory', function(){
     playerFactory.start(playerFactory.currentSong, playerFactory.album);
   }
 
+
+audio.addEventListener('timeupdate', function () {
+      playerFactory.progress = audio.currentTime / audio.duration;
+      $rootScope.$evalAsync();
+});
   playerFactory.getProgress = function(){
     // return playerFactory.progress;
-    audio.addEventListener('timeupdate', function () {
-      playerFactory.progress = 100 * audio.currentTime / audio.duration;
-      console.log(playerFactory.progress);
-      return playerFactory.progress;
-    });
+    return playerFactory.progress;
   }
 
   return playerFactory;
