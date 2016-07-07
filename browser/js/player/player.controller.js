@@ -16,13 +16,12 @@ juke.controller('PlayerCtrl', function ($scope, $rootScope, PlayerFactory) {
   //   $scope.$evalAsync(); // likely best, schedules digest if none happening
   // });
 
-  console.log('album ', PlayerFactory.album);
-
   // state
   $scope.currentSong = PlayerFactory.currentSong;
   $scope.playing = PlayerFactory.playing;
 
   $scope.getCurrentSong = PlayerFactory.getCurrentSong;
+  $scope.isPlaying = PlayerFactory.isPlaying;
 
   // main toggle
   $scope.toggle = function(song) {
@@ -42,7 +41,6 @@ juke.controller('PlayerCtrl', function ($scope, $rootScope, PlayerFactory) {
   // $scope.$on('play', play);
 
   // functionality
-
 
   // outgoing events (to Album… or potentially other characters)
   // $scope.next = function () { pause(); $rootScope.$broadcast('next'); };

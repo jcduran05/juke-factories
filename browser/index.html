@@ -47,8 +47,8 @@
             <tbody>
               <tr ng-repeat="song in album.songs" ng-class="{active: song === currentSong}">
                 <td>
-                  <button class="btn btn-default btn-xs" ng-click="toggle(song)">
-                    <span class="glyphicon" ng-class="{'glyphicon-pause': playing && song === currentSong, 'glyphicon-play': song !== currentSong || !playing}"></span>
+                  <button class="btn btn-default btn-xs" ng-click="toggle(song, album.songs)">
+                    <span class="glyphicon" ng-class="{'glyphicon-pause': isPlaying() && song === getCurrentSong(), 'glyphicon-play': song !== getCurrentSong() || !isPlaying()}"></span>
                   </button>
                 </td>
                 <td>{{ song.name }}</td>
@@ -94,7 +94,7 @@
               <span class="glyphicon glyphicon-step-backward"></span>
             </button>
             <button class="btn btn-default" ng-click="toggle(currentSong)">
-              <span class="glyphicon" ng-class="{'glyphicon-pause': playing, 'glyphicon-play': !playing}"></span>
+              <span class="glyphicon" ng-class="{'glyphicon-pause': isPlaying(), 'glyphicon-play': !isPlaying()}"></span>
             </button>
             <button class="btn btn-default" ng-click="next()">
               <span class="glyphicon glyphicon-step-forward"></span>

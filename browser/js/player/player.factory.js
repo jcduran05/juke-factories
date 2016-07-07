@@ -11,6 +11,7 @@ juke.factory('PlayerFactory', function($rootScope){
   var audio = document.createElement('audio');
 
   playerFactory.pause = function () {
+    // console.log(audio);
     playerFactory.playing = false;
     audio.pause();
   }
@@ -19,17 +20,19 @@ juke.factory('PlayerFactory', function($rootScope){
     // stop existing audio (e.g. other song) in any case
     if (arrayOfSongs) {
       playerFactory.placeInAlbum = arrayOfSongs.indexOf(song);
+      console.log(playerFactory.placeInAlbum);
       playerFactory.album = arrayOfSongs;
     }
     playerFactory.pause();
-    playerFactory.playing = true;
+    // playerFactory.playing = true;
     // resume current song
-    if (song === playerFactory.currentSong) return audio.play();
+    // if (song === playerFactory.currentSong) return this.resume();
     // enable loading new song
     playerFactory.currentSong = song;
     audio.src = song.audioUrl;
     audio.load();
-    audio.play();
+    // audio.play();
+    this.resume();
   }
 
   playerFactory.seek = function (decimal) {
@@ -53,7 +56,7 @@ juke.factory('PlayerFactory', function($rootScope){
   playerFactory.isPlaying = function(){
     if (playerFactory.playing) {
       return true;
-    }else{
+    } else {
       return false;
     }
   }
@@ -65,7 +68,7 @@ juke.factory('PlayerFactory', function($rootScope){
   playerFactory.next = function(){
     if (playerFactory.placeInAlbum === playerFactory.album.length -1) {
       playerFactory.placeInAlbum = 0;
-    }else{
+    } else {
       playerFactory.placeInAlbum++;
     }
     playerFactory.currentSong = playerFactory.album[playerFactory.placeInAlbum];
@@ -75,7 +78,7 @@ juke.factory('PlayerFactory', function($rootScope){
   playerFactory.previous = function(){
     if (playerFactory.placeInAlbum === 0) {
       playerFactory.placeInAlbum = playerFactory.album.length -1 ;
-    }else{
+    } else {
       playerFactory.placeInAlbum--;
     }
     playerFactory.currentSong = playerFactory.album[playerFactory.placeInAlbum];

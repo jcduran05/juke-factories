@@ -13,6 +13,7 @@ juke.controller('AlbumCtrl', function ($scope, $http, $rootScope, $log,
       song.albumIndex = i;
     });
     $scope.album = album;
+    // console.log($scope.album);
 
     // using statsfactory
     StatsFactory.totalTime(album)
@@ -26,16 +27,19 @@ juke.controller('AlbumCtrl', function ($scope, $http, $rootScope, $log,
   .catch($log.error); // $log service can be turned on and off; also, pre-bound
 
   // PlayerFactory.album = $scope.album;
+  $scope.isPlaying = PlayerFactory.isPlaying;
+  $scope.getCurrentSong = PlayerFactory.getCurrentSong;
 
-  $scope.toggle = function(song) {
+  $scope.toggle = function(song, album) {
+    console.log(album);
     if (!PlayerFactory.isPlaying()) {
-      PlayerFactory.start(song);
+      PlayerFactory.start(song, album);
     } else {
       PlayerFactory.pause();
     }
 
-    $scope.playing = PlayerFactory.playing;
-    $scope.currentSong = PlayerFactory.currentSong;
+    $scope.isPlaying = PlayerFactory.isPlaying;
+    $scope.getCurrentSong = PlayerFactory.getCurrentSong;
   }
 
     // console.log('album ', PlayerFactory.album);
