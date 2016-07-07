@@ -48,5 +48,6 @@ juke.controller('PlayerCtrl', function ($scope, $rootScope, PlayerFactory) {
 
   $scope.next = PlayerFactory.next;
   $scope.prev = PlayerFactory.previous;
+  $scope.getProgress = PlayerFactory.getProgress;
 
 });

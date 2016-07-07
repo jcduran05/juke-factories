@@ -73,6 +73,11 @@ juke.controller('AlbumCtrl', function ($scope, $http, $rootScope, $log,
   function next () { skip(1); };
   function prev () { skip(-1); };
 
+  $scope.$on('showAlbums', function(events, data){
+    console.log(data);
+    $scope.showAllAlbums = data;
+  })
+
 });
 
 
